@@ -71,6 +71,14 @@ img
         min-height: 250px;
     }
 
+    &.medium-small
+    {
+        max-width: 125px;
+        max-height: 125px;
+        min-width: 125px;
+        min-height: 125px;
+    }
+
     &.small
     {
         max-width: 75px;
@@ -170,9 +178,16 @@ button, .asButton
         cursor: default !important;
     }
 
-    .fill
+    &.fill
     {
-        background-color: rgba(var(--backgroundColourAlt), 1);
+        border: none;
+        background-color: rgba(var(--backgroundAltColour), 1);
+
+        &:hover
+        {
+            //This background colour isn't ideal but it will do as a temporary solution.
+            background-color: rgba(var(--foregroundColour), 0.1);
+        }
     }
 }
 
