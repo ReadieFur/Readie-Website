@@ -1,4 +1,4 @@
-import { Main } from "./assets/js/main.js";
+import { Main } from "../assets/js/main.js";
 
 class Index
 {
