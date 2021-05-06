@@ -31,11 +31,11 @@ export class Main
         Main.ThrowIfNullOrUndefined(document.querySelector("#accountButton")).addEventListener("click", () => { Main.AccountMenuToggle(true); });
         this.WindowResizeEvent();
 
-        if (Main.RetreiveCache("READIE_DARK") != "false") { Main.DarkTheme(true); }
+        if (Main.RetreiveCookie("READIE_DARK") != "false") { Main.DarkTheme(true); }
         else { Main.DarkTheme(false); }
         Main.ThrowIfNullOrUndefined(document.querySelector("#darkMode")).addEventListener("click", () =>
         {
-            var cachedValue = Main.RetreiveCache("READIE_DARK");
+            var cachedValue = Main.RetreiveCookie("READIE_DARK");
             if (cachedValue == undefined || cachedValue == "false") { Main.DarkTheme(true); }
             else { Main.DarkTheme(false); }
             //CBA to do the dynamic url thing I normally do, nothing sensitive is being sent over anyway.
@@ -176,7 +176,7 @@ export class Main
 
     public static DarkTheme(dark: boolean): void
     {
-        Main.SetCache("READIE_DARK", dark ? "true" : "false", 365);
+        Main.SetCookie("READIE_DARK", dark ? "true" : "false", 365);
         var darkButton: HTMLInputElement = Main.ThrowIfNullOrUndefined(document.querySelector("#darkMode"));
         var themeColours: HTMLStyleElement = Main.ThrowIfNullOrUndefined(document.querySelector("#themeColours"));
         if (dark) { darkButton.classList.add("accent"); }
@@ -194,7 +194,7 @@ export class Main
     }
 
     //I did not realise that PHP could also get the cookies, look into getting cookies from PHP instead for better security.
-    public static RetreiveCache(cookie_name: string): string
+    public static RetreiveCookie(cookie_name: string): string
     {
         var i, x, y, ARRcookies = document.cookie.split(";");
         for (i = 0; i < ARRcookies.length; i++)
@@ -207,12 +207,12 @@ export class Main
         return "";
     }
 
-    public static SetCache(cookie_name: string, value: string, time: number, path: string = '/'): void
+    public static SetCookie(cookie_name: string, value: string, hours: number, path: string = '/'): void
     {
         var hostSplit = window.location.host.split(".");
         var domain = `.${hostSplit[hostSplit.length - 2]}.${hostSplit[hostSplit.length - 1]}`;
         var expDate = new Date();
-        expDate.setDate(expDate.getDate() + time);
+        expDate.setTime(expDate.getTime() + (hours*60*60*1000));
         document.cookie = `${cookie_name}=${value}; expires=${expDate.toUTCString()}; path=${path}; domain=${domain};`;
     }
 

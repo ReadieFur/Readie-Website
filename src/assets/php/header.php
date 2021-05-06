@@ -8,12 +8,13 @@
     <div class="titleContainer">
         <a href="<?php echo $WEB_ROOT ?>/">
             <img class="small titleIcon" src="https://cdn.global-gaming.co/images/team/members/readiecircle.png">
-            <h3 class="title">Readie</h3>
+            <h3 class="title">Readie's Repo</h3>
         </a>
     </div>
     <div class="navigationContainer">
-        <a href="<?php echo $WEB_ROOT ?>/edit/">Projects</a>
-        <a href="<?php echo $WEB_ROOT ?>/edit/">Socials</a>
+        <!--I should have the page scroll if the user is already on the main page, or I could move this to it's own page.-->
+        <a href="<?php echo $WEB_ROOT ?>/projects/">Projects</a>
+        <a href="<?php echo $WEB_ROOT ?>/socials/">Socials</a>
         <div class="naviDropdown">
             <a>Account +</a>
             <div class="dropdownContent">
