@@ -216,6 +216,88 @@ export class Main
         document.cookie = `${cookie_name}=${value}; expires=${expDate.toUTCString()}; path=${path}; domain=${domain};`;
     }
 
+    //#region Cache
+    public static DeleteExpiredCache()
+    {
+        for (const key of Object.keys(localStorage))
+        {
+            var cache = localStorage.getItem(key);
+            if (cache == null) { continue; }
+
+            var parsedCache: any;
+            try { parsedCache = JSON.parse(cache); }
+            catch { parsedCache = null; }
+            if (parsedCache == null || ((parsedCache as ICache).expirationDate === undefined))
+            { continue; }
+
+            if (new Date().getTime() > (<ICache>parsedCache).expirationDate)
+            { localStorage.removeItem(key); }
+        }
+    }
+
+    public static SetCache(key: string, data: any, expirationDate: number): boolean
+    {
+        var existingCache = localStorage.getItem(key);
+        if (existingCache !== null)
+        {
+            var parsedCache: any;
+            try { parsedCache = JSON.parse(existingCache); }
+            catch (ex) { parsedCache = null; }
+            if (
+                parsedCache != null &&
+                (
+                    (parsedCache as ICache).expirationDate === undefined ||
+                    new Date().getTime() > (parsedCache as ICache).expirationDate
+                )
+            )
+            { this.DeleteCache(key); }
+        }
+
+        try
+        {
+            localStorage.setItem(key, JSON.stringify(
+            {
+                data: data,
+                expirationDate: expirationDate
+            }));
+
+            var newCache = localStorage.getItem(key);
+            if (newCache === null || (<ICache>JSON.parse(newCache)).expirationDate !== expirationDate) { return false; }
+
+            return true;
+        }
+        catch { return false; }
+    }
+
+    public static DeleteCache(key: string)
+    {
+        localStorage.removeItem(key);
+    }
+
+    public static GetCache(key: string): ICache | false
+    {
+        var cache = localStorage.getItem(key);
+        if (cache === null) { return false; }
+
+        var parsedCache: ICache;
+        try { parsedCache = JSON.parse(cache); }
+        catch (ex)
+        {
+            this.DeleteCache(key);
+            return false;
+        }
+
+        if (parsedCache.expirationDate === undefined) { return false; }
+        else if (new Date().getTime() > parsedCache.expirationDate)
+        {
+            this.DeleteCache(key);
+            return false;
+        }
+
+        return parsedCache;
+    }
+    //#endregion
+
     public static ThrowAJAXJsonError(data: any) { throw new TypeError(`${data} could not be steralised`); }
 
     //This is asyncronous as I will check if the user has dismissed the alert box in the future.
@@ -295,4 +377,10 @@ export interface ReturnData
 {
     error: boolean,
     data: any
+}
+
+export interface ICache
+{
+    data: any,
+    expirationDate: number
 }
