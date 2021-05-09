@@ -1,120 +1,104 @@
 import { Main, ReturnData } from "./main.js";
 
-//This could be simplified (data duplication reduced) but I cant be arsed to do that right now.
 export class RestAPI
 {
-    public static async GetStarred(user: string): Promise<IRestAPIResponse>
+    public static async GetStarred(_user: string)
     {
-        var _return: IRestAPIResponse = { error: true, data: "UNKNOWN_ERROR" };
-
-        var existingCache = Main.GetCache(`restAPI_users_${user}_starred`);
-        if (existingCache !== false)
-        {
-            _return = {
-                error: false,
-                data: existingCache.data
-            };
-        }
-        else
-        {
-            await jQuery.ajax(
-            {
-                url: `https://api.github.com/users/${user}/starred`,
-                method: "GET",
-                dataType: "json",
-                error: Main.ThrowAJAXJsonError,
-                success: (response, statusText, request) =>
-                {
-                    //console.log(response, statusText, request);
-
-                    var rateLimit = parseInt(request.getResponseHeader("x-ratelimit-limit") ?? "NaN");
-                    var rateLimitUsed = parseInt(request.getResponseHeader("x-ratelimit-used") ?? "NaN");
-    
-                    if (isNaN(rateLimit) || isNaN(rateLimitUsed)) { /*Do nothing*/ }
-                    else if (rateLimitUsed == rateLimit) { _return.data = "RATE_LIMIT_EXCEEDED"; }
-                    else if (response.message !== undefined) { _return.data = response.message; }
-                    else
-                    {
-                        //TTL: 1 hour.
-                        if (!Main.SetCache(`restAPI_users_${user}_starred`, response, new Date().getTime() + (1*60*60*1000)))
-                        {
-                            //I should modify this object to return the data even though the error occoured.
-                            _return.data = "CACHE_ERROR";
-                        }
-                        else
-                        {
-                            //The return dat ais set to default as return false so this is the only instance where I need to change the whole object.
-                            _return = {
-                                error: false,
-                                data: response,
-                                request: request
-                            };
-                        }
-                    }
-                }
-            });
-        }
-
-        return _return;
+        return await this.AJAX(["users", _user, "starred"])
     }
 
-    public static async GetRepository(owner: string, repository: string): Promise<IRestAPIResponse>
+    public static async GetRepository(_owner: string, _repository: string)
     {
-        var _return: IRestAPIResponse = { error: true, data: "UNKNOWN_ERROR" };
+        return await this.AJAX(["repos", _owner, _repository]);
+    }
 
-        var existingCache = Main.GetCache(`restAPI_repos_${owner}_${repository}`);
+    private static async AJAX(_path: string[]): Promise<IRestAPIResponse>
+    {
+        //Cache exists?
+        var existingCache = Main.GetCache(`restAPI_${_path.join('_')}`);
         if (existingCache !== false)
         {
-            _return = {
+            return {
                 error: false,
                 data: existingCache.data
             };
         }
-        else
-        {
-            await jQuery.ajax(
-            {
-                //The github api is subject to rate limiting (60 per hour without a login per IP, this should be fine though, I'd like to cache the result and then clear them every hour but I cant seem to store it as the response is too big).
-                //https://api.github.com/users/kofreadie/starred //Best option as I haven't starred any repos so I can use this to simulate the pins. Unfortunatly it's not in the same order, I'll sort them by most stars.
-                //https://api.github.com/users/kofreadie/subscriptions //Not ideal as I watch all of my repos
-                //https://api.github.com/repos/kofreadie/bsdatapuller/stargazers -> check if I am watching it (not ideal as id need to loop all repos)
-                url: `https://api.github.com/repos/${owner}/${repository}`,
-                method: "GET",
-                dataType: "json",
-                error: Main.ThrowAJAXJsonError,
-                success: (response, statusText, request) =>
-                {
-                    //console.log(response, statusText, request);
 
-                    var rateLimit = parseInt(request.getResponseHeader("x-ratelimit-limit") ?? "NaN");
-                    var rateLimitUsed = parseInt(request.getResponseHeader("x-ratelimit-used") ?? "NaN");
-    
-                    if (isNaN(rateLimit) || isNaN(rateLimitUsed)) { /*Do nothing*/ }
-                    else if (rateLimitUsed == rateLimit) { _return.data = "RATE_LIMIT_EXCEEDED"; }
-                    else if (response.message !== undefined) { _return.data = response.message; }
-                    else
-                    {
-                        //TTL: 1 hour.
-                        if (!Main.SetCache(`restAPI_repos_${owner}_${repository}`, response, new Date().getTime() + (1*60*60*1000)))
-                        {
-                            //I should modify this object to return the data even though the error occoured.
-                            _return.data = "CACHE_ERROR";
-                        }
-                        else
-                        {
-                            //The return dat ais set to default as return false so this is the only instance where I need to change the whole object.
-                            _return = {
-                                error: false,
-                                data: request,
-                                request: request
-                            };
-                        }
-                    }
-                }
+        //AJAX.
+        var ajax: JQuery.jqXHR<any>;
+        try
+        {
+            ajax = jQuery.ajax(
+            {
+                url: `https://api.github.com/${_path.join('/')}`,
+                method: "GET",
+                dataType: "json"
             });
+            await ajax;
+        }
+        catch (ex)
+        {
+            return {
+                error: true,
+                data: (<JQuery.jqXHR<any>>ex).status,
+                request: ex
+            };
         }
 
-        return _return;
+        //Rate limit.
+        var rateLimit = parseInt(ajax.getResponseHeader("x-ratelimit-limit") ?? "NaN");
+        var rateLimitUsed = parseInt(ajax.getResponseHeader("x-ratelimit-used") ?? "NaN");
+        if (isNaN(rateLimit) || isNaN(rateLimitUsed))
+        {
+            return {
+                error: true,
+                data: "RATELIMIT_NOT_FOUND",
+                request: ajax
+            };
+        } 
+        else if (rateLimitUsed == rateLimit)
+        {
+            return {
+                error: true,
+                data: "RATE_LIMIT_EXCEEDED",
+                request: ajax
+            };
+        }
+
+        //Data errors.
+        if (ajax.responseJSON === undefined)
+        {
+            return {
+                error: true,
+                data: "NO_DATA_FOUND",
+                request: ajax
+            };
+        }
+        else if (ajax.responseJSON.message !== undefined)
+        {
+            return {
+                error: true,
+                data: ajax.responseJSON.message,
+                request: ajax
+            };
+        }
+        
+        //Set cache.
+        if (!Main.SetCache(`restAPI_${_path.join('_')}`, ajax.responseJSON, new Date().getTime() + (1*60*60*1000))) //TTL: 1 hour.
+        {
+            return {
+                error: true,
+                data: "CACHE_ERROR",
+                request: ajax
+            };
+        }
+
+        //Return data if all was successful.
+        return {
+            error: false,
+            data: ajax.responseJSON,
+            request: ajax
+        };
     }
 }
 
@@ -123,7 +107,7 @@ export interface IRestAPIResponse extends ReturnData
     request?: JQuery.jqXHR<any>
 }
 
-export interface IGitHubRestAPIRepository
+export interface RestAPIRepository
 {
     id: number;
     node_id: string;
