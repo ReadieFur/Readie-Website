@@ -187,6 +187,7 @@ export class Main
                 --foregroundColour: ${dark ? "255, 255, 255" : "0, 0, 0"};
                 --backgroundColour: ${dark ? "13, 17, 23" : "255, 255, 255"};
                 --backgroundAltColour: ${dark ? "22, 27, 34" : "225, 225, 225"};
+                --linkColour: ${dark ? "30, 140, 255" : "0, 100, 215"};
                 --accentColour: 100, 0, 255;
                 --accentColourAlt: 255, 120, 0;
             }
@@ -317,7 +318,7 @@ export class Main
         return new Promise(r => setTimeout(r, milliseconds));
     }
 
-    public static GetPHPErrorMessage(error: any): string
+    public static GetErrorMessage(error: any): string
     {
         switch (error)
         {
@@ -367,6 +368,10 @@ export class Main
                 return "No results found.";
             case "NOT_LOGGED_IN":
                 return "Not logged in.";
+            case "RATE_LIMIT_EXCEEDED":
+                return "Rate limit exceeded.";
+            case "CACHE_ERROR":
+                return "Cache error";
             default:
                 return `Unknown error.<br><small>${String(error)}</small>`;
         }

@@ -24,7 +24,7 @@
             <div class="center">
                 <!--Think of a different name other than readie-->
                 <h1>Readie's repo</h1>
-                <h4>The home for my projects and more</h4>
+                <h4 class="light">The home for my projects and more</h4>
                 <table>
                     
                 </table>
