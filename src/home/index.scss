@@ -9,28 +9,7 @@ body
 
     #projects
     {
-        > .leftRight
-        {
-            position: relative;
-            width: 100%;
-            height: max-content;
-
-            > :first-child
-            {
-                width: max-content;
-            }
-
-            > :last-child
-            {
-                position: absolute;
-                width: max-content;
-                right: 0;
-                bottom: 0;
-                margin: 0;
-            }
-        }
-
-        #projectsRatelimit
+        #ratelimitText
         {
             margin-right: 16px;
             display: none;

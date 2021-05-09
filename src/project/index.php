@@ -22,7 +22,10 @@
 <body>
     <section id="projectContainer">
         <!--I'd like to add a lot more to the page but due to the limited number of API requests you get per hour, even with caching I fear that too many API calls will be made-->
-        <h3 id="title">Title</h3>
+        <div class="leftRight">
+            <h3 id="title">Project</h3>
+            <p id="ratelimitText">Rate limit</p>
+        </div>
         <hr>
         <table id="mainContainer">
             <tbody>

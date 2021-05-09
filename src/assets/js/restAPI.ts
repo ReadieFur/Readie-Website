@@ -9,7 +9,13 @@ export class RestAPI
 
     public static async GetRepository(_owner: string, _repository: string)
     {
+        //I could cut down on the cache a bit here if I tried to seach the cached repositories.
         return await this.AJAX(["repos", _owner, _repository]);
+    }
+
+    public static async GetRepositories(_user: string)
+    {
+        return await this.AJAX(["users", _user, "repos"]);
     }
 
     private static async AJAX(_path: string[]): Promise<IRestAPIResponse>

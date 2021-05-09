@@ -34,7 +34,7 @@
         <section id="projects">
             <div class="leftRight">
                 <h3>Projects</h3>
-                <p id="projectsRatelimit">Rate limit</p>
+                <p id="ratelimitText">Rate limit</p>
             </div>
             <hr>
             <br>

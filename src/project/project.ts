@@ -3,6 +3,7 @@ import { RestAPI, RestAPIRepository } from "../assets/js/restAPI.js";
 
 class Project
 {
+    private ratelimitText: HTMLParagraphElement;
     private title: HTMLHeadElement;
     private description: HTMLParagraphElement;
     private license: HTMLParagraphElement;
@@ -22,6 +23,7 @@ class Project
         if (path[path.length - 1] === "project" || path[path.length - 2] !== "project")
         { window.location.href = `${Main.WEB_ROOT}/projects/`; }
 
+        this.ratelimitText = Main.ThrowIfNullOrUndefined(document.querySelector("#ratelimitText"));
         this.title = Main.ThrowIfNullOrUndefined(document.querySelector("#title"));
         this.description = Main.ThrowIfNullOrUndefined(document.querySelector("#description"));
         this.license = Main.ThrowIfNullOrUndefined(document.querySelector("#license"));
@@ -55,6 +57,20 @@ class Project
                     await Main.Sleep(1000);
                     window.location.href = `${Main.WEB_ROOT}/projects/`;
                     break;
+            }
+        }
+
+        if (response.request !== undefined)
+        {
+            //These numbers shouldn't ever be NAN as they were checked for in RestAPI.ts
+            var rateLimit = parseInt(response.request.getResponseHeader("x-ratelimit-limit")!);
+            var rateLimitUsed = parseInt(response.request.getResponseHeader("x-ratelimit-used")!);
+    
+            if (rateLimitUsed > rateLimit - 10)
+            {
+                this.ratelimitText.style.color = "rgba(var(--foregroundColour), 1)";
+                this.ratelimitText.innerText = `Rate limit ${rateLimitUsed} of ${rateLimit}/h`;
+                this.ratelimitText.style.display = "block";
             }
         }
 

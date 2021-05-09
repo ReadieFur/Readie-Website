@@ -5,7 +5,7 @@ import { RestAPI, RestAPIRepository, IRestAPIResponse } from "../assets/js/restA
 class Index
 {
     private pinnedProjects: HTMLTableSectionElement;
-    private projectsRatelimit: HTMLParagraphElement;
+    private ratelimitText: HTMLParagraphElement;
 
     constructor()
     {
@@ -14,7 +14,7 @@ class Index
         this.GetPinnedRepos();
 
         this.pinnedProjects = Main.ThrowIfNullOrUndefined(document.querySelector("#pinnedProjects"));
-        this.projectsRatelimit = Main.ThrowIfNullOrUndefined(document.querySelector("#projectsRatelimit"));
+        this.ratelimitText = Main.ThrowIfNullOrUndefined(document.querySelector("#ratelimitText"));
     }
 
     private async GetPinnedRepos()
@@ -40,9 +40,9 @@ class Index
     
             if (rateLimitUsed > rateLimit - 10)
             {
-                this.projectsRatelimit.style.color = "rgba(var(--foregroundColour), 1)";
-                this.projectsRatelimit.innerText = `Rate limit ${rateLimitUsed} of ${rateLimit}/h`;
-                this.projectsRatelimit.style.display = "block";
+                this.ratelimitText.style.color = "rgba(var(--foregroundColour), 1)";
+                this.ratelimitText.innerText = `Rate limit ${rateLimitUsed} of ${rateLimit}/h`;
+                this.ratelimitText.style.display = "block";
             }
         }
 
