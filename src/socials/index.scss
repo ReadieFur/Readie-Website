@@ -1,0 +1,66 @@
+#socialsList
+{
+    height: max-content;
+    margin: 0 17.5%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    > a
+    {
+        position: relative;
+        margin-bottom: 50px;
+        display: inline-block;
+        text-align: center;
+        width: 300px;
+        height: 225px;
+
+        > div
+        {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: max-content;
+            height: max-content;
+
+            > svg
+            {
+                width: 100px;
+                height: 100px;
+
+                path
+                {
+                    fill: rgba(var(--foregroundColour), 1);
+                }
+            }
+
+            > h4
+            {
+                font-weight: normal;
+            }
+        }
+    }
+}
+
+.live
+{
+    background: linear-gradient(135deg,rgba(111,0,185,1) 30%,rgba(25,46,212,1) 100%);
+    background-size: 400% 400%;
+    animation: Gradient135 5s ease infinite;
+}
+
+@keyframes Gradient135
+{
+    0% {
+        background-position: 0% 0%
+    }
+
+    50% {
+        background-position: 100% 100%
+    }
+
+    100% {
+        background-position: 0% 0%
+    }
+}
