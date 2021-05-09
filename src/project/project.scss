@@ -29,16 +29,27 @@
                         padding-top: 16px;
                         text-align: right;
 
-                        > div
+                        > #links
                         {
                             width: max-content;
                             margin-right: 0;
                             margin-left: auto;
+                            margin-bottom: 16px;
+                        }
+
+                        > #license
+                        {
+                            margin-top: 0;
                         }
 
                         > span
                         {
                             padding-left: 20px;
+                        }
+
+                        > #updatedAt
+                        {
+                            margin-bottom: 0;
                         }
                     }
                 }

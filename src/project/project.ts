@@ -12,6 +12,7 @@ class Project
     private language: HTMLSpanElement;
     private stars: HTMLSpanElement;
     private forks: HTMLSpanElement;
+    private updatedAt: HTMLParagraphElement;
     private readmeContainer: HTMLTableElement;
     private readmeContents: HTMLDivElement;
 
@@ -32,6 +33,7 @@ class Project
         this.language = Main.ThrowIfNullOrUndefined(document.querySelector("#language"));
         this.stars = Main.ThrowIfNullOrUndefined(document.querySelector("#stars"));
         this.forks = Main.ThrowIfNullOrUndefined(document.querySelector("#forks"));
+        this.updatedAt = Main.ThrowIfNullOrUndefined(document.querySelector("#updatedAt"));
         this.readmeContainer = Main.ThrowIfNullOrUndefined(document.querySelector("#readmeContainer"));
         this.readmeContents = Main.ThrowIfNullOrUndefined(document.querySelector("#readmeContents"));
 
@@ -75,22 +77,36 @@ class Project
         }
 
         var project: RestAPIRepository = response.data;
+
+        //Only display public repos by me.
+        if (project.private || project.owner.id !== 60425965)
+        {
+            Main.Alert("Invalid repository");
+            await Main.Sleep(1000);
+            window.location.href = `${Main.WEB_ROOT}/projects/`;
+        }
         
         this.title.innerText = project.name;
         this.description.innerText = project.description;
-        this.license.innerText = project.license.name;
+        this.license.innerText = !Main.IsNullOrUndefined(project.license) ? project.license!.name : "";
         this.projectHome.href = project.homepage ?? "";
         this.githubSource.href = project.html_url;
         this.language.innerText = `Language: ${project.language ?? ""}`;
         this.stars.innerText = `Stars: ${project.stargazers_count.toString()}`;
         this.forks.innerText = `Forks: ${project.forks_count.toString()}`;
+
+        var date = Main.TimeSinceString(new Date(project.pushed_at));
+        var datePrefix: string = "Updated ";
+        for (let i = 0; i < Main.months.length; i++) { if (date.startsWith(Main.months[i])) { datePrefix += "on "; } }
+        this.updatedAt.innerText = `${datePrefix}${date}`;
         
+        if (project.license === null) { this.license.style.display = "none"; }
         if (project.homepage === undefined)
         {
             this.projectHome.style.display = "none";
             this.githubSource.classList.add("ignore");
         }
-        if (project.language === undefined) { this.language.style.display = "none"; }
+        if (Main.IsNullOrUndefined(project.language)) { this.language.style.display = "none"; }
         if (project.stargazers_count <= 0) { this.stars.style.display = "none"; }
         if (project.forks_count <= 0) { this.forks.style.display = "none"; }
 

@@ -2,6 +2,21 @@ declare var WEB_ROOT: string;
 
 export class Main
 {
+    public static readonly months =
+    [
+        "January",
+        "February",
+        "March", "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+    ];
+
     public static WEB_ROOT: string;
     public static header: HTMLElement;
     public static footer: HTMLElement;
@@ -170,8 +185,13 @@ export class Main
 
     public static ThrowIfNullOrUndefined(variable: any): any
     {
-        if (variable === null || variable === undefined) { throw new TypeError(`${variable} is null or undefined`); }
+        if (Main.IsNullOrUndefined(variable)) { throw new TypeError(`${variable} is null or undefined`); }
         return variable;
+    }
+
+    public static IsNullOrUndefined(variable: any): boolean
+    {
+        return variable === null || variable === undefined;
     }
 
     public static DarkTheme(dark: boolean): void
@@ -311,6 +331,56 @@ export class Main
             Main.alertBoxText.innerHTML = message;
             Main.alertBoxContainer.style.display = "block";
         }
+    }
+
+    public static TimeSinceString(_date: Date, _since = new Date()): string
+    {
+        var since = _since.getTime();
+        var date: string;
+
+        if (
+            //Newer than 1 minute.
+            _date.getTime() > since - 1000 //updated < now - 1 minute.
+        )
+        {
+            date = "less than a minute ago";
+        }
+        else if (
+            //Older than 1 minute, newer than 1 hour.
+            _date.getTime() < since - (60*1000) && //updated < now - 1 minute.
+            _date.getTime() > since - (60*60*1000) //updated > now - 1 hour.
+        )
+        {
+            var minutes = Math.trunc(((since / 1000) - (_date.getTime() / 1000)) / 60);
+            date = `${minutes} ${minutes == 1 ? "minute" : "minutes"} ago`;
+        }
+        else if (
+            //Older than 1 hour, newer than 1 day.
+            _date.getTime() < since - (60*60*1000) && //updated < now - 1 hour.
+            _date.getTime() > since - (24*60*60*1000) //updated > now - 1 day.
+        )
+        {
+            var hours = Math.trunc(((since / 1000) - (_date.getTime() / 1000)) / 3600);
+            date = `${hours} ${hours == 1 ? "hour" : "hours"} ago`;
+        }
+        else if (
+            //Older than 1 day, newer than 2 weeks.
+            _date.getTime() < since - (24*60*60*1000) && //updated < now - 1 day.
+            _date.getTime() > since - (14*24*60*60*1000) //updated > now - two weeks.
+        )
+        {
+            //Less than a day.
+            var days = Math.trunc(((since / 1000) - (_date.getTime() / 1000)) / 86400);
+            date = `${days} ${days == 1 ? "day" : "days"} ago`;
+        }
+        else
+        {
+            //More than two weeks.
+            date = `${Main.months[_date.getMonth()]} ${_date.getDate()}, ${_date.getFullYear()}`;
+        }
+        //TODO Add more time periods, return false if the _since date is larger than the _date value, add a time period limit (return no larger than x days), create a time class for different return values.
+
+        return date;
     }
 
     public static Sleep(milliseconds: number): Promise<unknown>

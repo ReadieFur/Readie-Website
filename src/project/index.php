@@ -43,6 +43,7 @@
                         <span id="language" class="light">Language</span>
                         <span id="stars" class="light">Stars</span>
                         <span id="forks" class="light">Forks</span>
+                        <p id="updatedAt" class="light">Updated at</p>
                     </td>
                 </tr>
             </tbody>
