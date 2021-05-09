@@ -370,7 +370,6 @@ export class Main
             _date.getTime() >= since - (14*24*60*60*1000) //updated > now - two weeks.
         )
         {
-            //Less than a day.
             var days = Math.trunc(((since / 1000) - (_date.getTime() / 1000)) / 86400);
             date = `${days} ${days == 1 ? "day" : "days"} ago`;
         }

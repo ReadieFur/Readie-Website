@@ -1,6 +1,7 @@
 Todo:
     ☐ Add archived status on the repositories.
     Optional:
+        ☐ Use the twitch API code I had before to check if my twitch is live.
         ☐ Add custom meta tags for pages with data about the project (similar to what GitHub has recently added).
 Done:
     ✔ Move the home page from root (/) to home (/home). @done(21-05-06 21:54)

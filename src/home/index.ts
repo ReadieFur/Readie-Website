@@ -1,6 +1,5 @@
 import { Main } from "../assets/js/main.js";
-//I could import as 'RestAPI' to add the prefix to the interfaces which I would do but it means I need to type 'RestAPI' twice to access the class in the file.
-import { RestAPI, RestAPIRepository, IRestAPIResponse } from "../assets/js/restAPI.js";
+import { RestAPI, RestAPIRepository } from "../assets/js/restAPI.js";
 
 class Index
 {
@@ -11,10 +10,13 @@ class Index
     {
         new Main();
 
-        this.GetPinnedRepos();
-
         this.pinnedProjects = Main.ThrowIfNullOrUndefined(document.querySelector("#pinnedProjects"));
         this.ratelimitText = Main.ThrowIfNullOrUndefined(document.querySelector("#ratelimitText"));
+
+        Main.ThrowIfNullOrUndefined(document.querySelector("#age")).innerText =
+            `age ${Math.trunc(((new Date().getTime() / 1000) - (new Date("Friday, August 15, 2003 00:00:00 AM").getTime() / 1000)) / 31536000)}`;
+
+        this.GetPinnedRepos();
     }
 
     private async GetPinnedRepos()
