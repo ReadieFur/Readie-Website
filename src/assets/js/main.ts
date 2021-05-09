@@ -340,7 +340,8 @@ export class Main
 
         if (
             //Newer than 1 minute.
-            _date.getTime() > since - 1000 //updated < now - 1 minute.
+            _date.getTime() < since - 1000 && //updated < now - 1 minute.
+            _date.getTime() >= since - (60*1000) //updated > now - 1 minute.
         )
         {
             date = "less than a minute ago";
@@ -348,7 +349,7 @@ export class Main
         else if (
             //Older than 1 minute, newer than 1 hour.
             _date.getTime() < since - (60*1000) && //updated < now - 1 minute.
-            _date.getTime() > since - (60*60*1000) //updated > now - 1 hour.
+            _date.getTime() >= since - (60*60*1000) //updated > now - 1 hour.
         )
         {
             var minutes = Math.trunc(((since / 1000) - (_date.getTime() / 1000)) / 60);
@@ -357,7 +358,7 @@ export class Main
         else if (
             //Older than 1 hour, newer than 1 day.
             _date.getTime() < since - (60*60*1000) && //updated < now - 1 hour.
-            _date.getTime() > since - (24*60*60*1000) //updated > now - 1 day.
+            _date.getTime() >= since - (24*60*60*1000) //updated > now - 1 day.
         )
         {
             var hours = Math.trunc(((since / 1000) - (_date.getTime() / 1000)) / 3600);
@@ -366,7 +367,7 @@ export class Main
         else if (
             //Older than 1 day, newer than 2 weeks.
             _date.getTime() < since - (24*60*60*1000) && //updated < now - 1 day.
-            _date.getTime() > since - (14*24*60*60*1000) //updated > now - two weeks.
+            _date.getTime() >= since - (14*24*60*60*1000) //updated > now - two weeks.
         )
         {
             //Less than a day.
