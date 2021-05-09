@@ -1,0 +1,150 @@
+.leftRight
+{
+    > :last-child
+    {
+        bottom: unset;
+    }
+}
+
+#ratelimitText
+{
+    //margin-left: 16px;
+    display: none;
+}
+
+#search
+{
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translate(0, -50%);
+
+
+    input
+    {
+        border: 1px solid rgba(var(--foregroundColour), 1);
+        box-sizing: content-box;
+        height: 20px;
+        text-transform: none;
+    }
+
+    input[type="text"]
+    {
+        border-right: 0;
+        border-radius: 4px 0 0 4px;
+        padding: 4px 6px;
+        width: auto;
+    }
+
+    input[type="submit"]
+    {
+        border-radius: 0 4px 4px 0;
+        outline: none;
+        transition: ease .4s;
+        transition-property: background-color, color;
+        user-select: none;
+        padding: 4px 8px;
+    }
+}
+
+#repos
+{
+    padding-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+
+    th, td
+    {
+        width: (100/3)+0%;
+        padding: 15px 10px;
+    }
+
+    th
+    {
+        text-align: left;
+        font-weight: bold;
+        border-bottom: 2px solid rgba(var(--foregroundColour), 1);
+    }
+
+    td
+    {
+        border-bottom: 1px solid rgba(var(--foregroundColour), 1);
+    }
+
+    .listItem
+    {
+        min-height: 150px;
+        height: 150px;
+        cursor: pointer;
+
+        &:hover
+        {
+            background-color: rgba(var(--backgroundAltColour), 1);
+        }
+    }
+
+    .projectColumn
+    {
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .descriptionColumn
+    {
+        text-align: left;
+
+        &:not(th)
+        {
+            font-weight: normal;
+            line-height: 150%;
+        }
+    }
+
+    .detailsColumn
+    {
+        text-align: right;
+        
+        &:not(th)
+        {
+            > span
+            {
+                padding-left: 20px;
+            }
+        }
+
+        > *
+        {
+            &:first-child
+            {
+                margin-top: 0;
+            }
+
+            &:last-child
+            {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+#resultsText
+{
+    font-size: small;
+    font-weight: normal;
+    text-align: center;
+}
+
+#pages
+{
+    width: max-content;
+    position: relative;
+    top: 15px;
+    left: 50%;
+    transform: translate(-50%);
+
+    > button
+    {
+        width: 45px;
+        height: 45px;
+    }
+}
