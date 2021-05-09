@@ -48,8 +48,9 @@ class Index
 
         var repos: RestAPIRepository[] = response.data;
             
-        //Only display public, non-forked repos by me.
-        repos = repos.filter(repo => !repo.private && !repo.fork && repo.owner.id === 60425965);
+        ////Only display public, non-forked repos by me.
+        //Only display public repos by me.
+        repos = repos.filter(repo => !repo.private && /*!repo.fork &&*/ repo.owner.id === 60425965);
 
         //Sort ascending to descending by star count.
         repos.sort((item1, item2) =>
@@ -89,7 +90,7 @@ class Index
             forks.classList.add("light");
 
             infoContainer.classList.add("infoContainer");
-            if (repos[i].language !== undefined)
+            if (Main.IsNullOrUndefined(repos[i].language))
             {
                 language.innerText = `Language: ${repos[i].language!}`;
                 infoContainer.appendChild(language);

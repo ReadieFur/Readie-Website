@@ -1,5 +1,16 @@
 Todo:
+    ☐ Add search and page filters to the /projects page.
+    ☐ Add license to the repository listings.
+    ☐ Add archived status on the repositories.
+    Optional:
+        ☐ Add custom meta tags for pages with data about the project (similar to what GitHub has recently added).
 Done:
+    ✔ Move the home page from root (/) to home (/home). @done(21-05-06 21:54)
+    ✔ Add more spacing to the pinned projects on the home page. @done(21-05-07 20:52)
+    ✔ Move UI elements around on the project.ts page. @done(21-05-08 19:28)
+    ✔ Create custom css for the readme on project.ts. @done(21-05-08 21:12)
+    ✔ Fix the readme markdown html container from going wider than 100%. @done(21-05-09 02:16)
+    ✔ Try to modify the markdown parser output to build tables. @done(21-05-09 02:16)
     ✔ Fix project.scss mainContainer width. @done(21-05-09 10:09)
     ✔ Fix relative URL parsing on markdown files. @done(21-05-09 10:09)
     ✔ Add date updated to the repository listings. @done(21-05-09 13:43)
