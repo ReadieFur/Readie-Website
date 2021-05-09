@@ -57,7 +57,7 @@
             <button>4</button>-->
         </div>
         <br>
-        <p id="resultsText">Showing results: 0-0 of 0</p>
+        <p id="resultsText" class="light">Showing results: 0-0 of 0</p>
     </section>
 </body>
 <footer id="footer"><?php echo execAndRead("{$SITE_ROOT}/assets/php/footer.php"); ?></footer>

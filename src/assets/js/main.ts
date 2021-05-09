@@ -384,6 +384,52 @@ export class Main
         return date;
     }
 
+    //https://stackoverflow.com/questions/10473745/compare-strings-javascript-return-of-likely
+    //I had tested multiple string comparers.
+    //From the ones I tested two of them yielded very similar results for some strings.
+    //I have gone with the longer one which I've read to be slower for longer strings but that shouldn't be a problem here.
+    //I didn't pick the shorter one as on some strings the results were completely off.
+    //This is using a 'Levenshtein distance' algorithm.
+    public static CompareStringSimilarity(string1: string, string2: string): number
+    {
+        var longer = string1;
+        var shorter = string2;
+        if (string1.length < string2.length)
+        {
+            longer = string2;
+            shorter = string1;
+        }
+        var longerLength = longer.length;
+        if (longerLength == 0) { return 1.0; }
+
+        longer = longer.toLowerCase();
+        shorter = shorter.toLowerCase();
+      
+        var costs = new Array();
+        for (var i = 0; i <= longer.length; i++)
+        {
+            var lastValue = i;
+            for (var j = 0; j <= shorter.length; j++)
+            {
+                if (i == 0) { costs[j] = j; }
+                else
+                {
+                    if (j > 0)
+                    {
+                        var newValue = costs[j - 1];
+                        if (longer.charAt(i - 1) != shorter.charAt(j - 1))
+                        { newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1; }
+                        costs[j - 1] = lastValue;
+                        lastValue = newValue;
+                    }
+                }
+            }
+            if (i > 0) { costs[shorter.length] = lastValue; }
+        }
+
+        return (longerLength - costs[shorter.length]) / longerLength;
+    }
+
     public static Sleep(milliseconds: number): Promise<unknown>
     {
         return new Promise(r => setTimeout(r, milliseconds));
