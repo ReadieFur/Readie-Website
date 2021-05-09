@@ -8,6 +8,7 @@
 
     > #mainContainer
     {
+        width: 100%;
         border-spacing: 10px 0px;
 
         > tbody
@@ -18,14 +19,14 @@
 
                 > td
                 {
-                    &:first-of-type
+                    /*&:first-of-type
                     {
-                        width: 75%;
-                    }
+                        width: 70%;
+                    }*/
 
                     &:last-of-type
                     {
-                        width: 15%;
+                        width: 400px;
                         padding-top: 16px;
                         text-align: right;
 

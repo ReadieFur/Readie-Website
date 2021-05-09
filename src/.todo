@@ -1,6 +1,4 @@
 Todo:
-    ☐ Add search and page filters to the /projects page.
-    ☐ Add license to the repository listings.
     ☐ Add archived status on the repositories.
     Optional:
         ☐ Add custom meta tags for pages with data about the project (similar to what GitHub has recently added).
@@ -14,3 +12,5 @@ Done:
     ✔ Fix project.scss mainContainer width. @done(21-05-09 10:09)
     ✔ Fix relative URL parsing on markdown files. @done(21-05-09 10:09)
     ✔ Add date updated to the repository listings. @done(21-05-09 13:43)
+    ✔ Add search and page filters to the /projects page. @done(21-05-09 16:35)
+    ✔ Add license to the repository listings. @done(21-05-09 16:35)

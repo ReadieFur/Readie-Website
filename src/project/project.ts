@@ -100,8 +100,8 @@ class Project
         for (let i = 0; i < Main.months.length; i++) { if (date.startsWith(Main.months[i])) { datePrefix += "on "; } }
         this.updatedAt.innerText = `${datePrefix}${date}`;
         
-        if (project.license === null) { this.license.style.display = "none"; }
-        if (project.homepage === undefined)
+        if (Main.IsNullOrUndefined(project.license)) { this.license.style.display = "none"; }
+        if (Main.IsNullOrUndefined(project.homepage) || project.homepage == "")
         {
             this.projectHome.style.display = "none";
             this.githubSource.classList.add("ignore");
