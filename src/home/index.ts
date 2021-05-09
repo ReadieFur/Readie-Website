@@ -92,7 +92,7 @@ class Index
             forks.classList.add("light");
 
             infoContainer.classList.add("infoContainer");
-            if (Main.IsNullOrUndefined(repos[i].language))
+            if (!Main.IsNullOrUndefined(repos[i].language))
             {
                 language.innerText = `Language: ${repos[i].language!}`;
                 infoContainer.appendChild(language);
