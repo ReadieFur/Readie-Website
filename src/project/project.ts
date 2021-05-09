@@ -215,10 +215,22 @@ class Project
             readmeMD = newLines.join("\n");
 
             var parsedReadme = marked.parse(readmeMD);
-
             replaceIDs.forEach(keyValue => { parsedReadme = parsedReadme.replace(keyValue[0], keyValue[1]); });
 
             this.readmeContents.innerHTML = parsedReadme;
+
+            this.readmeContents.querySelectorAll("img").forEach(element =>
+            {
+                if ((element.getAttribute("src")??"").startsWith("./"))
+                {
+                    //https://raw.githubusercontent.com/kOFReadie/BSDP-Overlay/master/previews/mapDetails.png
+                    element.src = `https://raw.githubusercontent.com/kOFReadie/${project.name}/${project.default_branch}/${element.getAttribute("src")!.substr(2)}`;
+                }
+
+                if (element.previousElementSibling !== null) { (<HTMLElement>element.previousElementSibling).style.marginBottom = "0"; }
+                
+                element.insertAdjacentElement("beforebegin", document.createElement("br"));
+            });
         }
         else
         { this.readmeContainer.style.display = "none"; }

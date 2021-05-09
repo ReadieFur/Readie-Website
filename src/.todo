@@ -8,3 +8,4 @@ Done:
     ✔ Fix the readme markdown html container from going wider than 100% @done(21-05-09 02:16)
     ✔ Try to modify the markdown parser output to build tables @done(21-05-09 02:16)
     ✔ Fix project.scss mainContainer width. @done(21-05-09 10:09)
+    ✔ Fix relative URL parsing on markdown files. @done(21-05-09 10:09)
