@@ -22,15 +22,35 @@
     <div>
         <section id="splashTitleContainer">
             <div class="center">
-                <!--Think of a different name other than readie-->
                 <h1>Readie's repo</h1>
                 <h4 class="light">The home for my projects and more</h4>
-                <table>
-                    
-                </table>
             </div>
         </section>
-        <!--add an about me here-->
+        <section id="aboutMe">
+            <h3>About Me</h3>
+            <hr>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p class="light">
+                                My name is Tristan, <span id="age" class="light">born on 15/08/2003</span>, from the UK.<br>
+                                In my free time I like to write programs, desktop and web based. I program in C#, TS, PHP, HTML/XAML, SCSS and a few others on the side.<br>
+                                My favourite game to play is Beat Saber VR which I peaked at rank 280~ (Top 25UK).<br>
+                                I have been intrested in the furry fandom for a while and I have very recently started to draw, I hope to get better at it.<br>
+                                Looking to study software engineering at Uni later this year.<br>
+                                Feel free to drop me a message, I'm open to talking to others and making new friends.<br>
+                                To keep things simple I won't say any more.
+                            </p>
+                        </td>
+                        <td>
+                            <img class="img medium center x" src="https://cdn.global-gaming.co/images/team/members/readiecircle.png">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <br>
         <section id="projects">
             <div class="leftRight">
                 <h3>Projects</h3>
@@ -64,31 +84,6 @@
             <div class="center x text">
                 <a class="asButton" href="<?php echo $WEB_ROOT; ?>/projects/">View all</a>
             </div>
-        </section>
-        <br>
-        <section id="aboutMe">
-            <h3>About Me</h3>
-            <hr>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>
-                            <p class="light">
-                                My name is Tristan, <span id="age" class="light">born on 15/08/2003</span>, from the UK.<br>
-                                In my free time I like to write programs, desktop and web based. I program in C#, TS, PHP, HTML/XAML, SCSS and a few others on the side.<br>
-                                My favourite game to play is Beat Saber VR which I peaked at rank 280~ (Top 25UK).<br>
-                                I have been intrested in the furry fandom for a while and I have very recently started to draw, I hope to get better at it.<br>
-                                Looking to study software engineering at Uni later this year.<br>
-                                Feel free to drop me a message, I'm open to talking to others and making new friends.<br>
-                                To keep things simple I won't say any more.
-                            </p>
-                        </td>
-                        <td>
-                            <img class="img medium center x" src="https://cdn.global-gaming.co/images/team/members/readiecircle.png">
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </section>
     </div>
 </body>
