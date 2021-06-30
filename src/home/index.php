@@ -37,7 +37,7 @@
                                 My name is Tristan, <span id="age" class="light">born on 15/08/2003</span>, from the UK.<br>
                                 In my free time I like to write programs, desktop and web based. I program in C#, TS, PHP, HTML/XAML, SCSS and a few others on the side.<br>
                                 My favourite game to play is Beat Saber VR which I peaked at rank 280~ (Top 25UK).<br>
-                                I have been intrested in the furry fandom for a while and I have very recently started to draw, I hope to get better at it.<br>
+                                I have been interested in the furry fandom for a while and I have very recently started to draw, I hope to get better at it.<br>
                                 Looking to study software engineering at Uni later this year.<br>
                                 Feel free to drop me a message, I'm open to talking to others and making new friends.<br>
                                 To keep things simple I won't say any more.
