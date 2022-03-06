@@ -38,7 +38,7 @@
                             <a id="projectHome" class="asButton">Project home</a>
                             <a id="githubSource" class="asButton">Github source</a>
                         </div>
-                        <!--<p>Latest release</p>--> <!--https://api.github.com/repos/kOFReadie/BSDataPuller/releases-->
+                        <!--<p>Latest release</p>--> <!--https://api.github.com/repos/ReadieFur/BSDataPuller/releases-->
                         <p id="license">License</p>
                         <span id="language" class="light">Language</span>
                         <span id="stars" class="light">Stars</span>

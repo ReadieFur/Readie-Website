@@ -21,7 +21,7 @@ class Index
 
     private async GetPinnedRepos()
     {
-        var response = await RestAPI.GetStarred("kofreadie")
+        var response = await RestAPI.GetStarred("readiefur")
         if (response.error)
         {
             switch (response.data)
