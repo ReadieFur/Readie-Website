@@ -81,7 +81,7 @@ class Projects
 
     private async LoadProjects()
     {
-        var response = await RestAPI.GetRepositories("kofreadie");
+        var response = await RestAPI.GetRepositories("readiefur");
         if (response.error)
         {
             switch (response.data)

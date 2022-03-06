@@ -42,7 +42,7 @@ class Project
 
     private async LoadProject(_projectName: string)
     {
-        var response = await RestAPI.GetRepository("kofreadie", _projectName);
+        var response = await RestAPI.GetRepository("readiefur", _projectName);
         if (response.error)
         {
             switch (response.data)
@@ -113,7 +113,7 @@ class Project
         //Load project readme if it exists.
         var readmeMD: string | false = await jQuery.ajax(
         {
-            url: `https://raw.githubusercontent.com/kOFReadie/${_projectName}/${project.default_branch}/README.md`,
+            url: `https://raw.githubusercontent.com/ReadieFur/${_projectName}/${project.default_branch}/README.md`,
             method: "GET",
             dataType: "text",
         })
@@ -255,8 +255,8 @@ class Project
             {
                 if ((element.getAttribute("src")??"").startsWith("./"))
                 {
-                    //https://raw.githubusercontent.com/kOFReadie/BSDP-Overlay/master/previews/mapDetails.png
-                    element.src = `https://raw.githubusercontent.com/kOFReadie/${project.name}/${project.default_branch}/${element.getAttribute("src")!.substr(2)}`;
+                    //https://raw.githubusercontent.com/ReadieFur/BSDP-Overlay/master/previews/mapDetails.png
+                    element.src = `https://raw.githubusercontent.com/ReadieFur/${project.name}/${project.default_branch}/${element.getAttribute("src")!.substr(2)}`;
                 }
 
                 if (element.previousElementSibling !== null) { (<HTMLElement>element.previousElementSibling).style.marginBottom = "0"; }
