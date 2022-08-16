@@ -44,7 +44,7 @@
                             </p>
                         </td>
                         <td>
-                            <img class="img medium center x" src="https://cdn.global-gaming.co/images/team/members/readiecircle.png">
+                            <img class="img medium center x" src="https://cdn-readie.global-gaming.co/images/team/members/readiecircle.png">
                         </td>
                     </tr>
                 </tbody>
