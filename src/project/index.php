@@ -15,7 +15,7 @@
 <head>
     <?php echo execAndRead("{$SITE_ROOT}/assets/php/head.php"); ?>
     <link rel="stylesheet" href="./project.css">
-    <script src="https://cdn-readie.global-gaming.co/resources/scripts/marked/marked-2.0.3.min.js"></script>
+    <script src="https://cdn.readiefur.com/resources/scripts/marked/marked-2.0.3.min.js"></script>
     <script src="./project.js" type="module"></script>
 </head>
 <header id="header"><?php echo execAndRead("{$SITE_ROOT}/assets/php/header.php"); ?></header>

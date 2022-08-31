@@ -7,7 +7,7 @@
     <span class="bottomStripThin"></span>
     <div class="titleContainer">
         <a href="<?php echo $WEB_ROOT ?>/">
-            <img class="small titleIcon" src="https://cdn-readie.global-gaming.co/images/team/members/readiecircle.png">
+            <img class="small titleIcon" src="https://cdn.readiefur.com/images/team/members/readiecircle.png">
             <h3 class="title">Readie's Repo</h3>
         </a>
     </div>
@@ -22,12 +22,12 @@
                 <div class="bottomStrip">
                     <a id="accountButton">Managment</a>
                     <a id="darkMode">Dark Mode</a>
-                </div>                
+                </div>
             </div>
         </div>
     </div>
 </section>
-<iframe id="accountContainer" src="//api-readie.global-gaming.<?php echo $DOMAIN[count($DOMAIN) - 1]; ?>/account/"></iframe>
+<iframe id="accountContainer" src="//api.readiefur.<?php echo $DOMAIN[count($DOMAIN) - 1]; ?>/account/"></iframe>
 <div id="alertBoxContainer">
     <div class="background"></div>
     <div id="alertBox">
